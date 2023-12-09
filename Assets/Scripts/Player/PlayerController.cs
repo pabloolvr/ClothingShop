@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_closestInteractable == null) return;
 
-        _closestInteractable.Interact();
+        _closestInteractable.Interact(this);
     }
 
     public void MoveUp()

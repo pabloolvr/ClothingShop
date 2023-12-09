@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopUIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private RawImage _playerPreviewDisplay;
+    [SerializeField] private GameObject _shopCameraPrefab;
+    [SerializeField] private Button _closeBtn;
+
+    private GameObject _shopCameraInstance;
+    private PlayerController _player;
+
+    public void Initialize(PlayerController player)
     {
-        
+        _player = player;
+        _shopCameraInstance = Instantiate(_shopCameraPrefab, _player.transform);
+        _closeBtn.onClick.AddListener(CloseShop);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CloseShop()
     {
-        
+        GameManager.Instance.UIManager.CloseShopInterface();
+        Destroy(_shopCameraInstance);
+        Destroy(gameObject);
     }
 }

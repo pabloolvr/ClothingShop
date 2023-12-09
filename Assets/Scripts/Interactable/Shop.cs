@@ -19,8 +19,8 @@ public class Shop : MonoBehaviour, IInteractable
         
     }
 
-    public void Interact()
+    public void Interact(PlayerController player)
     {
-        Debug.Log($"Interacted with {gameObject.name}");
+        GameManager.Instance.UIManager.OpenShopInterface(player);
     }
 }

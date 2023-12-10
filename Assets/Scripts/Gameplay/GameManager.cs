@@ -41,16 +41,18 @@ public class GameManager : MonoBehaviour
 
     private void OnShopOpened()
     {
-        _lastPlayerPos = _player.transform.position;
-        // teleports the player to a position with nothing around
-        _player.transform.position = new Vector2(99999, 99999);
+        _player.DetachCamera();
         _player.IsAway = true;
+        // teleports the player to a position with nothing around
+        _lastPlayerPos = _player.transform.position;
+        _player.transform.position = new Vector2(99999, 99999);
     }
 
     private void OnShopClosed()
     {
-        _player.transform.position = _lastPlayerPos;
         _player.IsAway = false;
+        _player.transform.position = _lastPlayerPos;
+        _player.AttachCamera();
     }
 
     // Update is called once per frame

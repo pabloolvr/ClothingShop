@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public bool IsAway { get => _isAway; set => _isAway = value;}
 
     [Header("References")]
-    public int playId;
+    [SerializeField] private Camera _mainCamera;
     private InteractionDetector _interactionDetector;
     private Rigidbody2D _rigidbody;
 
@@ -59,6 +59,16 @@ public class PlayerController : MonoBehaviour
         if (_closestInteractable == null) return;
 
         _closestInteractable.Interact(this);
+    }
+
+    public void DetachCamera()
+    {
+        _mainCamera.transform.SetParent(null);
+    }
+
+    public void AttachCamera()
+    {
+        _mainCamera.transform.SetParent(transform);
     }
 
     public void MoveUp()

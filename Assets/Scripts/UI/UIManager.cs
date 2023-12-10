@@ -31,10 +31,10 @@ public class UIManager : MonoBehaviour
         _interactPanel.enabled = value;
     }
 
-    public void OpenShopInterface(PlayerController player)
+    public void OpenShopInterface(PlayerController player, Shop shop)
     {
         _curOpenShop = Instantiate(_shopInterfacePrefab).GetComponent<ShopUIManager>();
-        _curOpenShop.Initialize(player);
+        _curOpenShop.Initialize(player, shop);
         OnShopOpened();
     }
 

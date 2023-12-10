@@ -6,7 +6,7 @@ public class Shop : MonoBehaviour, IInteractable
 {
     public Vector2 Position => transform.position;
 
-    [SerializeField] private List<Item> _itemStock;
+    [SerializeField] private List<ItemData> _itemStock;
     [SerializeField] private Collider2D _collider;
 
     private void Start()
@@ -21,6 +21,6 @@ public class Shop : MonoBehaviour, IInteractable
 
     public void Interact(PlayerController player)
     {
-        GameManager.Instance.UIManager.OpenShopInterface(player);
+        GameManager.Instance.UIManager.OpenShopInterface(player, this);
     }
 }

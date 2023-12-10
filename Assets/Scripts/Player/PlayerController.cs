@@ -9,8 +9,10 @@ public class PlayerController : MonoBehaviour
     /// If player can take in-world actions like move, attack, etc.
     /// </summary>
     public bool IsAway { get => _isAway; set => _isAway = value;}
+    public PlayerAnimator PlayerAnimator => _playerAnimator;
 
     [Header("References")]
+    [SerializeField] private PlayerAnimator _playerAnimator;
     [SerializeField] private Camera _mainCamera;
     private InteractionDetector _interactionDetector;
     private Rigidbody2D _rigidbody;
@@ -18,15 +20,32 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField, Range(0, 200)] private int _characterSpeed = 100;
 
-    //[Header("States")]
+    private PlayerWearableSocket[] _wearableSockets;
     private bool _isAway = false;
     private IInteractable _closestInteractable = null;
 
     private void Awake()
     {
+        GetComponents();
+        StartComponents();
+        SetEvents();       
+    }
+
+    private void GetComponents()
+    {
         _interactionDetector = GetComponentInChildren<InteractionDetector>();
-        _interactionDetector.OnDetectionUpdate += UpdateClosestInteractable;
         _rigidbody = GetComponent<Rigidbody2D>();
+        _wearableSockets = GetComponentsInChildren<PlayerWearableSocket>();
+    }
+
+    private void StartComponents()
+    {
+        _playerAnimator.Initialize(_wearableSockets);
+    }
+
+    private void SetEvents()
+    {
+        _interactionDetector.OnDetectionUpdate += UpdateClosestInteractable;
     }
 
     private void Update()

@@ -12,11 +12,13 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private KeyCode _interactKey = KeyCode.E;
 
     private PlayerController _playerController;
+    private PlayerAnimator _playerAnimator;
     private List<KeyCode> _inputHistory = new List<KeyCode>(4);
 
     private void Awake()
     {
         _playerController = GetComponent<PlayerController>();
+        _playerAnimator = _playerController.PlayerAnimator;
     }
 
     private void Update()
@@ -61,17 +63,25 @@ public class PlayerInput : MonoBehaviour
             {
                 case KeyCode.UpArrow:
                     _playerController.MoveUp();
+                    _playerAnimator.PlayWalkAnim(_playerAnimator.WalkUpAnimId);
                     break;
                 case KeyCode.RightArrow:
                     _playerController.MoveRight();
+                    _playerAnimator.PlayWalkAnim(_playerAnimator.WalkRightAnimId);
                     break;
                 case KeyCode.DownArrow:
                     _playerController.MoveDown();
+                    _playerAnimator.PlayWalkAnim(_playerAnimator.WalkDownAnimId);
                     break;
                 case KeyCode.LeftArrow:
                     _playerController.MoveLeft();
+                    _playerAnimator.PlayWalkAnim(_playerAnimator.WalkLeftAnimId);
                     break;
             }
+        }
+        else
+        {
+            _playerAnimator.StopWalkAnim();
         }
     }
 }

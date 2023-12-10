@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         _player.DetachCamera();
         _player.IsAway = true;
+        _player.PlayerAnimator.ResetAnimator();
         // teleports the player to a position with nothing around
         _lastPlayerPos = _player.transform.position;
         _player.transform.position = new Vector2(99999, 99999);

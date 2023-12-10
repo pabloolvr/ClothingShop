@@ -54,14 +54,14 @@ public class WearableItem : ItemData
     [SerializeField] private GameObject _modelPrefab;
 
     [Header("Idle Animation Sprites")]
-    [SerializeField] private Sprite[] _idleUpSprites;
-    [SerializeField] private Sprite[] _idleDownSprites;
-    [SerializeField] private Sprite[] _idleLeftSprites;
-    [SerializeField] private Sprite[] _idleRightSprites;
+    [SerializeField] private Sprite[] _idleUpSprites = new Sprite[3];
+    [SerializeField] private Sprite[] _idleDownSprites = new Sprite[3];
+    [SerializeField] private Sprite[] _idleLeftSprites = new Sprite[3];
+    [SerializeField] private Sprite[] _idleRightSprites = new Sprite[3];
 
     [Header("Walk Animation Sprites")]
-    [SerializeField] private Sprite[] _walkUpSprites;
-    [SerializeField] private Sprite[] _walkDownSprites;
-    [SerializeField] private Sprite[] _walkLeftSprites;
-    [SerializeField] private Sprite[] _walkRightSprites;
+    [SerializeField] private Sprite[] _walkUpSprites = new Sprite[5];
+    [SerializeField] private Sprite[] _walkDownSprites = new Sprite[5];
+    [SerializeField] private Sprite[] _walkLeftSprites = new Sprite[5];
+    [SerializeField] private Sprite[] _walkRightSprites = new Sprite[5];
 }

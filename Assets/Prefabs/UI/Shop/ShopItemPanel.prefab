@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 40.157, y: 0}
-  m_SizeDelta: {x: 436.31, y: 84}
+  m_AnchoredPosition: {x: 9.1731, y: 0}
+  m_SizeDelta: {x: 374.3423, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2116661680906553180
 CanvasRenderer:
@@ -225,6 +225,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abe10576dfdd5e4ca28a39842bfd463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _panelBtn: {fileID: 2116661682218846659}
+  _itemIcon: {fileID: 2116661681450957192}
+  _itemNameField: {fileID: 2116661680906553183}
+  _itemQuantityField: {fileID: 537810291506602584}
 --- !u!1 &2116661681183605642
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,8 +555,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -213.31, y: -30.0231}
-  m_SizeDelta: {x: 39.5526, y: 24.9544}
+  m_AnchoredPosition: {x: 227.33, y: 0.00025272}
+  m_SizeDelta: {x: 61.97, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1615669610981181562
 CanvasRenderer:
@@ -609,10 +613,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.3
-  m_fontSizeBase: 28
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 15
   m_fontSizeMax: 36
   m_fontStyle: 0

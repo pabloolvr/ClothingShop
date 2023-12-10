@@ -12,9 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a8f77e02bc99b4495cdcadfc3f7d6f, type: 3}
   m_Name: Shortshirt 1
   m_EditorClassIdentifier: 
-  _itemName: 
-  _itemSprite: {fileID: 0}
-  _itemDescription: 0
+  _itemName: Short Shirt
+  _itemDescription: A simple yet comfortable shirt.
+  _itemIcon: {fileID: 0}
   _slot: 1
   _layer: 5
   _modelPrefab: {fileID: 0}
+  _idleUpSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _idleDownSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _idleLeftSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _idleRightSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _walkUpSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _walkDownSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _walkLeftSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _walkRightSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

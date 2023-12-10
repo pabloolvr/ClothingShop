@@ -10,9 +10,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public bool IsAway { get => _isAway; set => _isAway = value;}
     public PlayerAnimator PlayerAnimator => _playerAnimator;
+    public PlayerInventory PlayerInventory => _playerInventory;
 
     [Header("References")]
     [SerializeField] private PlayerAnimator _playerAnimator;
+    [SerializeField] private PlayerInventory _playerInventory;
     [SerializeField] private Camera _mainCamera;
     private InteractionDetector _interactionDetector;
     private Rigidbody2D _rigidbody;
@@ -41,16 +43,12 @@ public class PlayerController : MonoBehaviour
     private void StartComponents()
     {
         _playerAnimator.Initialize(_wearableSockets);
+        _playerInventory.Initialize(_playerAnimator, _wearableSockets);
     }
 
     private void SetEvents()
     {
         _interactionDetector.OnDetectionUpdate += UpdateClosestInteractable;
-    }
-
-    private void Update()
-    {
-
     }
 
     private void UpdateClosestInteractable()

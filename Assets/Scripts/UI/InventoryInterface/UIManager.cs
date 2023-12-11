@@ -25,8 +25,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button _inventoryButton;
     public Button InventoryButton => _inventoryButton;
 
-    private InventoryUIManager _curOpenInventory;
-    private ShopUIManager _curOpenShop;
+    private InventoryManager _curOpenInventory;
+    private ShopManager _curOpenShop;
 
     void Start()
     {
@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenShopInterface(PlayerController player, Shop shop)
     {
-        _curOpenShop = Instantiate(_shopInterfacePrefab).GetComponent<ShopUIManager>();
+        _curOpenShop = Instantiate(_shopInterfacePrefab).GetComponent<ShopManager>();
         _curOpenShop.Initialize(player, shop);
         _positionsCanvas.enabled = false;
         OnShopOpened();
@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
     {
         if (_curOpenInventory == null)
         {
-            _curOpenInventory = Instantiate(_inventoryInterfacePrefab).GetComponent<InventoryUIManager>();
+            _curOpenInventory = Instantiate(_inventoryInterfacePrefab).GetComponent<InventoryManager>();
             _curOpenInventory.Initialize(player);
             _positionsCanvas.enabled = false;
             OnShopOpened();

@@ -23,18 +23,18 @@ public class ShopItemPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _itemNameField;
     [SerializeField] private TextMeshProUGUI _itemQuantityField;
 
-    private ShopUIManager _shopUIManager;
+    private ShopManager _ShopManager;
 
     private void OnDestroy()
     {
-        if (_shopUIManager)
-            _shopUIManager.OnShopItemPanelDestroyed(this);
+        if (_ShopManager)
+            _ShopManager.OnShopItemPanelDestroyed(this);
     }
 
-    public void Initialize(ItemInstance item, ShopUIManager shopUIManager)
+    public void Initialize(ItemInstance item, ShopManager ShopManager)
     {
         Item = item;
-        _shopUIManager = shopUIManager;
+        _ShopManager = ShopManager;
 
         _itemIcon.sprite = item.ItemData.Icon;
         _itemIcon.color = item.ItemData.Color;

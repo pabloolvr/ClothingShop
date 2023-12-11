@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopUIManager : MonoBehaviour
+public class ShopManager : MonoBehaviour
 {
     [Header("Prefabs")]
     [SerializeField] private GameObject _shopCameraPrefab;

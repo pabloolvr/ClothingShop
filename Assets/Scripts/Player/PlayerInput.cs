@@ -10,6 +10,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private KeyCode _moveDownKey = KeyCode.DownArrow;
     [SerializeField] private KeyCode _moveLeftKey = KeyCode.LeftArrow;
     [SerializeField] private KeyCode _interactKey = KeyCode.E;
+    [SerializeField] private KeyCode _inventoryKey = KeyCode.I;
 
     private PlayerController _playerController;
     private PlayerAnimator _playerAnimator;
@@ -24,6 +25,13 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(_inventoryKey))
+        {
+            _playerController.IsAway = !_playerController.IsAway;
+            GameManager.Instance.UIManager.ToggleInventory();
+            _playerAnimator.ResetAnimator();
+        }
+
         if (_playerController.IsAway) return;
 
         UpdateMovement();

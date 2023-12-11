@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,6 +77,12 @@ public class PlayerController : MonoBehaviour
         if (_closestInteractable == null) return;
 
         _closestInteractable.Interact(this);
+    }
+
+    public void ToggleInventory()
+    {
+        IsAway = !_isAway;
+        GameManager.Instance.UIManager.ToggleInventory();
     }
 
     public void DetachCamera()

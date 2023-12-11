@@ -48,7 +48,7 @@ public class WearableItem : ItemData
     public Sprite[] WalkLeftSprites => _walkLeftSprites;
     public Sprite[] WalkRightSprites => _walkRightSprites;
 
-    [Header("General Data")]
+    [Header("Wearable Data")]
     [SerializeField] private WearableSlot _slot;
     [SerializeField] private WearableLayer _layer;
     [SerializeField] private GameObject _modelPrefab;

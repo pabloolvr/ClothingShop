@@ -1,66 +1,61 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 [Serializable]
 public class ShopItem
 {
-    public ItemData ItemData 
-    { 
-        get { return _itemData; }
-        private set { _itemData = value; }
-    }
-    public int Quantity
-    {
-        get { return _quantity; }
-        private set { _quantity = value; }
-    }
-    public int Price
-    {
-        get { return _price; }
-        private set { _price = value; }
-    }
+    public ItemData ItemData => _itemData;
+    public int Quantity => _quantity;
+    public int Price => _useLocalPrice ? _price : _itemData.ItemPrice;
 
     [SerializeField] private ItemData _itemData;
     [SerializeField] private int _quantity;
+    [SerializeField] private bool _useLocalPrice;
     [SerializeField] private int _price;
-
-    public ShopItem(ItemData itemData, int quantity, int price)
-    {
-        ItemData = itemData;
-        Quantity = quantity;
-    }
-
-    public void AddQuantity(int quantity)
-    {
-        Quantity += quantity;
-    }
-
-    public void RemoveQuantity(int quantity)
-    {
-        Quantity -= quantity;
-    }
 }
 
 public class Shop : MonoBehaviour, IInteractable
 {
     public Vector2 Position => transform.position;
-    public Dictionary<ItemData, ShopItem> ItemStock => _itemStock;
+    public List<ItemInstance> ItemStock => _curStock;
 
     public int CurGold { get; set; }
 
-    [SerializeField] private List<ShopItem> _stock;
+    [Header("Settings")]
+    [SerializeField] private int _defaultSellPrice = 1;
+    [SerializeField, Range(0, 1)] private float _sellPriceMultiplier = .4f;
+    [SerializeField] private List<ShopItem> _baseStock;
     
-    private Dictionary<ItemData, ShopItem> _itemStock = new Dictionary<ItemData, ShopItem>();
+    private List<ItemInstance> _curStock = new List<ItemInstance>();
 
     private void Start()
     {
         CurGold = 1000;
 
-        foreach (var item in _stock)
+        foreach (ShopItem shopItem in _baseStock)
         {
-            _itemStock.Add(item.ItemData, item);
+            _curStock.Add(new ItemInstance(shopItem.ItemData, shopItem.Quantity, shopItem.Price));
         }
+    }
+
+    /// <summary>
+    /// If shop is interested in the item, returns the price of the item.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    public int GetBuyPrice(ItemData item)
+    {
+        foreach (ShopItem shopItem in _baseStock)
+        {
+            if (shopItem.ItemData == item)
+            {
+                return (int)(shopItem.Price * _sellPriceMultiplier);
+            }
+        }
+
+        return (int)(item.ItemPrice * _sellPriceMultiplier);
     }
 
     public void Interact(PlayerController player)
@@ -68,15 +63,53 @@ public class Shop : MonoBehaviour, IInteractable
         GameManager.Instance.UIManager.OpenShopInterface(player, this);
     }
 
-    public void AddStock(ShopItem shopItem)
+    public void AddStock(ItemInstance itemInstance, int quantity)
     {
-        if (_itemStock.ContainsKey(shopItem.ItemData))
+        if (!itemInstance.ItemData.Stackable)
         {
-            _itemStock[shopItem.ItemData].AddQuantity(shopItem.Quantity);
+            if (!_curStock.Contains(itemInstance))
+                _curStock.Add(itemInstance);
+        }
+        else if (_curStock.Contains(itemInstance))
+        {
+            itemInstance.AddQuantity(quantity);
         }
         else
         {
-            _itemStock.Add(shopItem.ItemData, shopItem);
+            foreach (ItemInstance item in _curStock)
+            {
+                if (item.ItemData == itemInstance.ItemData)
+                {
+                    item.AddQuantity(quantity);
+                    return;
+                }
+            }
+
+            _curStock.Add(itemInstance);
         }
+    }
+
+    public bool RemoveFromStock(ItemInstance itemInstance, int quantity)
+    {
+        if (_curStock.Contains(itemInstance))
+        {
+            if (!itemInstance.ItemData.Stackable)
+            {
+                _curStock.Remove(itemInstance);
+                return true;
+            }
+            else if (itemInstance.Quantity >= quantity)
+            {
+                itemInstance.RemoveQuantity(quantity);
+                return true;
+            }
+            else
+            {
+                _curStock.Remove(itemInstance);
+                return true;
+            }
+        }
+
+        return false;
     }
 }

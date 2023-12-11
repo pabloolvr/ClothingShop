@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         _interactionDetector = GetComponentInChildren<InteractionDetector>();
         _rigidbody = GetComponent<Rigidbody2D>();
-        _wearableSockets = GetComponentsInChildren<PlayerWearableSocket>();
+        _wearableSockets = GetComponentsInChildren<PlayerWearableSocket>(true);
     }
 
     private void StartComponents()

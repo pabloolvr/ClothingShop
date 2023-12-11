@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class ShopUIManager : MonoBehaviour
 {
@@ -34,8 +34,6 @@ public class ShopUIManager : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float _actionDelay = 1f;
-    [SerializeField] private int _defaultSellPrice = 1;
-    [SerializeField, Range(0, 1)] private float _sellPriceMultiplier = .4f;
 
     [Header("Input")]
     [SerializeField] private KeyCode _buySellKey = KeyCode.Q;
@@ -58,8 +56,8 @@ public class ShopUIManager : MonoBehaviour
     private GameObject _shopCameraInstance;
     private PlayerController _player;
     private Shop _shop;
-    private Dictionary<ItemData, ShopItemPanel> _shopItemPanels = new Dictionary<ItemData, ShopItemPanel>();
-    private Dictionary<ItemData, ShopItemPanel> _playerItemPanels = new Dictionary<ItemData, ShopItemPanel>();
+    private Dictionary<ItemInstance, ShopItemPanel> _shopItemPanels = new Dictionary<ItemInstance, ShopItemPanel>();
+    private Dictionary<ItemInstance, ShopItemPanel> _playerItemPanels = new Dictionary<ItemInstance, ShopItemPanel>();
 
     private void Start()
     {
@@ -103,7 +101,7 @@ public class ShopUIManager : MonoBehaviour
         {
             if (SelectedItemPanel == null) return;
 
-            if (SelectedItemPanel.ShopItem.ItemData is WearableItem)
+            if (SelectedItemPanel.Item.ItemData is WearableItem)
             {
                 if (_equipBtn.gameObject.activeSelf)
                 {
@@ -121,7 +119,7 @@ public class ShopUIManager : MonoBehaviour
     {
         if (SelectedItemPanel == null) return;
 
-        WearableItem item = SelectedItemPanel.ShopItem.ItemData as WearableItem;
+        WearableItem item = SelectedItemPanel.Item.ItemData as WearableItem;
 
         if (_player.PlayerInventory.HasItemEquipped(item))
         {
@@ -133,22 +131,22 @@ public class ShopUIManager : MonoBehaviour
     {
         if (SelectedItemPanel == null) return;
 
-        _player.PlayerInventory.EquipItem(SelectedItemPanel.ShopItem.ItemData as WearableItem);
+        _player.PlayerInventory.EquipItem(SelectedItemPanel.Item.ItemData as WearableItem);
     }
 
     private void PlayerSellItem()
     {
         if (SelectedItemPanel == null) return;
 
-        //SelectedItemPanel.ShopItem.RemoveQuantity(1);
+        //SelectedItemPanel.Item.RemoveQuantity(1);
 
-        //if (_shopItemPanels.ContainsKey(SelectedItemPanel.ShopItem.ItemData))
+        //if (_shopItemPanels.ContainsKey(SelectedItemPanel.Item.ItemData))
         //{
-        //    _shopItemPanels[SelectedItemPanel.ShopItem.ItemData].AddQuantity(1);
+        //    _shopItemPanels[SelectedItemPanel.Item.ItemData].AddQuantity(1);
         //}
         //else
         //{
-        //    _shopItemPanels.Add(SelectedItemPanel.ShopItem.ItemData, SelectedItemPanel.ShopItem);
+        //    _shopItemPanels.Add(SelectedItemPanel.Item.ItemData, SelectedItemPanel.ShopItem);
         //}
 
         _playerGoldField.text = "<sprite index=0> " + _player.PlayerInventory.CurGold.ToString();
@@ -158,30 +156,50 @@ public class ShopUIManager : MonoBehaviour
     private void PlayerBuyItem()
     {
         if (SelectedItemPanel == null) return;
-        if (!_player.PlayerInventory.TryAddItem(SelectedItemPanel.ShopItem.ItemData, 1)) return;
 
-        _shop.AddStock(SelectedItemPanel.ShopItem);
+        ItemInstance itemInstance = null;
 
-        // update item panel quantity on shop side
-        SelectedItemPanel.Quantity -= 1;
-
-        // update item panel quantity on player side
-        if (_playerItemPanels.ContainsKey(SelectedItemPanel.ShopItem.ItemData))
+        SelectedItemPanel.RemoveQuantity(1, out int removedQty);
+        if (removedQty == 1)
         {
-            _playerItemPanels[SelectedItemPanel.ShopItem.ItemData].Quantity += 1;
-            return;
+            _shop.RemoveFromStock(SelectedItemPanel.Item, removedQty);
+            _player.PlayerInventory.TryAddItem(SelectedItemPanel.Item.ItemData, out itemInstance);
         }
         else
         {
-            SpawnItemPanel(SelectedItemPanel.ShopItem, false);
+            return;
+        }
+
+        if (SelectedItemPanel.Item.ItemData.Stackable)
+        {
+            if (itemInstance != null)
+            {
+                SpawnItemPanel(itemInstance, false);
+            }
+            else
+            {
+                foreach (ItemInstance item in _playerItemPanels.Keys)
+                {
+                    if (item.ItemData == SelectedItemPanel.Item.ItemData)
+                    {
+                        _playerItemPanels[item].AddQuantity(1, out _);
+                    }
+                }
+            }
+        }
+        else
+        {
+            SpawnItemPanel(itemInstance, false);
         }
 
         // update gold qty of shop and player
-        _shop.CurGold += SelectedItemPanel.ShopItem.Price;
-        _player.PlayerInventory.CurGold -= SelectedItemPanel.ShopItem.Price;
+        _shop.CurGold += SelectedItemPanel.Item.Price;
+        _player.PlayerInventory.CurGold -= SelectedItemPanel.Item.Price;
 
         _playerGoldField.text = "<sprite index=0> " + _player.PlayerInventory.CurGold.ToString();
         _shopGoldField.text = "<sprite index=0> " + _shop.CurGold.ToString();
+
+        SelectedItemPanel = null;
     }
 
     /// <summary>
@@ -189,7 +207,7 @@ public class ShopUIManager : MonoBehaviour
     /// </summary>
     private void FillShopInventory()
     {
-        foreach (var item in _shop.ItemStock.Values)
+        foreach (ItemInstance item in _shop.ItemStock)
         {           
             SpawnItemPanel(item, true);
         }
@@ -200,57 +218,72 @@ public class ShopUIManager : MonoBehaviour
     /// </summary>
     private void FillPlayerInventory()
     {
-        foreach (PlayerIventoryItem item in _player.PlayerInventory.Inventory)
+        foreach (ItemInstance item in _player.PlayerInventory.ItemInventory)
         {
-            if (_shopItemPanels.ContainsKey(item.ItemData))
-            {
-                ShopItem shopItem = new ShopItem(item.ItemData, item.Quantity, _shopItemPanels[item.ItemData].ShopItem.Price);
-                SpawnItemPanel(shopItem, false);
-            }
-            else // if shopkeeper doesn't have the item, buy it from the player at a default price
-            {
-                ShopItem shopItem = new ShopItem(item.ItemData, item.Quantity, _defaultSellPrice);
-                SpawnItemPanel(shopItem, false);
-
-            }           
+            //ItemInstance shopItem = new ItemInstance(item.ItemData, item.Quantity, _shop.GetBuyPrice(item.ItemData));
+            SpawnItemPanel(item, false);
         }
     }
 
-    private void SpawnItemPanel(ShopItem item, bool fromShop)
+    /// <summary>
+    /// Tries to spawn item panel. 
+    /// If item is stackable, it will try to find the item panel and add the quantity, withou spawning a new one.
+    /// </summary>
+    /// <param name="itemInstance"></param>
+    /// <param name="fromShop"></param>
+    /// <returns></returns>
+    private bool SpawnItemPanel(ItemInstance itemInstance, bool fromShop)
     {
         ShopItemPanel itemPanel;
-        
+        Dictionary<ItemInstance, ShopItemPanel> itemPanels;
+        ScrollRect scrollView;
+
         if (fromShop)
         {
-            itemPanel = Instantiate(_shopItemPanelPrefab, _shopInventoryScrollView.content).GetComponent<ShopItemPanel>();
-            itemPanel.Initialize(item, this);
-            itemPanel.PanelBtn.onClick.AddListener(() => OnItemSelected(itemPanel, true));
-            _shopItemPanels.Add(item.ItemData, itemPanel);
+            itemPanels = _shopItemPanels;
+            scrollView = _shopInventoryScrollView;
         }
         else
         {
-            itemPanel = Instantiate(_shopItemPanelPrefab, _playerInventoryScrollView.content).GetComponent<ShopItemPanel>();
-            itemPanel.Initialize(item, this);
-            itemPanel.PanelBtn.onClick.AddListener(() => OnItemSelected(itemPanel, false));
-            _playerItemPanels.Add(item.ItemData, itemPanel);
+            itemPanels = _playerItemPanels;
+            scrollView = _playerInventoryScrollView;
         }
+
+        if (itemInstance.ItemData.Stackable)
+        {
+            foreach (ItemInstance item in itemPanels.Keys)
+            {
+                if (item.ItemData == itemInstance.ItemData)
+                {
+                    //itemPanels[item].Quantity += itemInstance.Quantity;
+                    itemPanels[item].AddQuantity(itemInstance.Quantity, out _);
+                    return false;
+                }
+            }
+        }
+
+        itemPanel = Instantiate(_shopItemPanelPrefab, scrollView.content).GetComponent<ShopItemPanel>();
+        itemPanel.Initialize(itemInstance, this);
+        itemPanel.PanelBtn.onClick.AddListener(() => OnItemSelected(itemPanel, fromShop));
+        itemPanels.Add(itemInstance, itemPanel);
+        return true;
     }
 
     private void OnItemSelected(ShopItemPanel itemPanel, bool fromShop)
     {
         SelectedItemPanel = itemPanel;
-        _itemInfoPanel.SetActive(true);
 
-        _selectedItemNameField.text = itemPanel.ShopItem.ItemData.Name;
-        _selectedItemDescriptionField.text = itemPanel.ShopItem.ItemData.Description;
+        _selectedItemNameField.text = itemPanel.Item.ItemData.Name;
+        _selectedItemDescriptionField.text = itemPanel.Item.ItemData.Description;
 
         // check if it is on player inventory or shop inventory
         if (fromShop)
         {
             _buyBtn.gameObject.SetActive(true);
-            _buyBtnField.text = $"[{_buySellKey}] Buy <sprite index=0> {itemPanel.ShopItem.Price}";
+            
+            _buyBtnField.text = $"[{_buySellKey}] Buy <sprite index=0> {itemPanel.Item.Price}";
 
-            if (_player.PlayerInventory.CurGold >= itemPanel.ShopItem.Price && !_player.PlayerInventory.IsInventoryFull)
+            if (_player.PlayerInventory.CurGold >= itemPanel.Item.Price && !_player.PlayerInventory.IsInventoryFull)
             {
                 _buyBtn.GetComponent<CanvasGroup>().alpha = 1f;
             }
@@ -265,10 +298,10 @@ public class ShopUIManager : MonoBehaviour
         }
         else
         {
-            int sellPrice = (int)(itemPanel.ShopItem.Price * _sellPriceMultiplier);
-
             _buyBtn.gameObject.SetActive(false);
             _sellBtn.gameObject.SetActive(true);
+
+            int sellPrice = _shop.GetBuyPrice(itemPanel.Item.ItemData);
             _sellBtnField.text = $"[{_buySellKey}] Sell <sprite index=0> {sellPrice}";
 
             if (_shop.CurGold >= sellPrice)
@@ -280,12 +313,12 @@ public class ShopUIManager : MonoBehaviour
                 _buyBtn.GetComponent<CanvasGroup>().alpha = .5f;
             }
 
-            if (itemPanel.ShopItem.ItemData is not WearableItem)
+            if (itemPanel.Item.ItemData is not WearableItem)
             {
                 _equipBtn.gameObject.SetActive(false);
                 _unequipBtn.gameObject.SetActive(false);
             }
-            else if (_player.PlayerInventory.HasItemEquipped(itemPanel.ShopItem.ItemData as WearableItem))
+            else if (_player.PlayerInventory.HasItemEquipped(itemPanel.Item.ItemData as WearableItem))
             {
                 _equipBtn.gameObject.SetActive(false);
                 _unequipBtn.gameObject.SetActive(true);
@@ -300,8 +333,8 @@ public class ShopUIManager : MonoBehaviour
 
     public void OnShopItemPanelDestroyed(ShopItemPanel shopItemPanel)
     {
-        _shopItemPanels.Remove(shopItemPanel.ShopItem.ItemData);
-        _playerItemPanels.Remove(shopItemPanel.ShopItem.ItemData);
+        //_shopItemPanels.Remove(shopItemPanel.Item);
+        //_playerItemPanels.Remove(shopItemPanel.Item);
     }
 
     public void CloseShop()

@@ -3,31 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerIventoryItem
-{
-    public ItemData ItemData => _itemData;
-    public int Quantity => _quantity;
-
-    private ItemData _itemData;
-    private int _quantity;
-
-    public PlayerIventoryItem(ItemData itemData, int quantity)
-    {
-        _itemData = itemData;
-        _quantity = quantity;
-    }
-
-    public void AddQuantity(int quantity)
-    {
-        _quantity += quantity;
-    }
-
-    public void RemoveQuantity(int quantity)
-    {
-        _quantity -= quantity;
-    }
-}
-
 /// <summary>
 /// This class manages items on player inventory or equipped.
 /// </summary>
@@ -35,15 +10,14 @@ public class PlayerInventory : MonoBehaviour
 {
     public int CurGold { get; set; }
     public bool IsInventoryFull => _itemInventory.Count >= _maxInventorySize;
-
-    public List<PlayerIventoryItem> Inventory => _itemInventory.Values.ToList();
-
+    public List<ItemInstance> ItemInventory => _itemInventory;
     [SerializeField] private int _maxInventorySize = 20;
 
     /// <summary>
     /// Stores the items and their quantities.
     /// </summary>
-    private Dictionary<ItemData, PlayerIventoryItem> _itemInventory = new Dictionary<ItemData, PlayerIventoryItem>();
+    //private Dictionary<ItemData, List<ItemInstance>> _itemInventory = new Dictionary<ItemData, List<ItemInstance>>();
+    private List<ItemInstance> _itemInventory = new List<ItemInstance>();
     private PlayerWearableSocket[] _wearableSockets;
     private PlayerAnimator _playerAnimator;
 
@@ -58,21 +32,42 @@ public class PlayerInventory : MonoBehaviour
         _playerAnimator = playerAnimator;
     }
 
-    public bool TryAddItem(ItemData itemData, int quantity)
+    /// <summary>
+    /// Tries to add a single item to the inventory. 
+    /// It creates a new item instance if the item is 
+    /// non stackable or stackable without a item instance.
+    /// </summary>
+    /// <param name="itemData">Base item data.</param>
+    /// <param name="itemInstance">New item instance created, null otherwise.</param>
+    /// <returns>True if item was added, false otherwise.</returns>
+    public bool TryAddItem(ItemData itemData, out ItemInstance itemInstance)
     {
+        itemInstance = null;
+
         if (_itemInventory.Count >= _maxInventorySize)
         {
             Debug.Log("Inventory is full.");
             return false;
         }
 
-        if (_itemInventory.ContainsKey(itemData))
+        if (!itemData.Stackable)
         {
-            _itemInventory[itemData].AddQuantity(quantity);
+            itemInstance = new ItemInstance(itemData, 1, itemData.ItemPrice);
+            _itemInventory.Add(itemInstance);
         }
-        else
+        else 
         {
-            _itemInventory.Add(itemData, new PlayerIventoryItem(itemData, quantity));
+            foreach (ItemInstance item in _itemInventory)
+            {
+                if (item.ItemData == itemData)
+                {
+                    item.AddQuantity(1);
+                    return true;
+                }
+            }
+
+            itemInstance = new ItemInstance(itemData, 1, itemData.ItemPrice);
+            _itemInventory.Add(itemInstance);
         }
 
         return true;

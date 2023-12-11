@@ -6,25 +6,12 @@ using UnityEngine.UI;
 public class ShopItemPanel : MonoBehaviour
 {
     public Button PanelBtn => _panelBtn;
-    public ShopItem ShopItem { get; private set; }
+    public ItemInstance Item { get; private set; }
     public int Quantity
     {
         get 
         { 
-            return ShopItem.Quantity; 
-        }
-        set 
-        { 
-            ShopItem.AddQuantity(value - ShopItem.Quantity);
-
-            if (ShopItem.Quantity <= 0)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                _itemQuantityField.text = "x" + ShopItem.Quantity;
-            }
+            return Item.Quantity; 
         }
     }
 
@@ -42,13 +29,53 @@ public class ShopItemPanel : MonoBehaviour
             _shopUIManager.OnShopItemPanelDestroyed(this);
     }
 
-    public void Initialize(ShopItem item, ShopUIManager shopUIManager)
+    public void AddQuantity(int value, out int addedValue)
     {
-        ShopItem = item;
+        int oldVal = Item.Quantity;
+        Item.AddQuantity(value);
+        addedValue = Item.Quantity - oldVal;
+
+        if (Item.Quantity <= 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _itemQuantityField.text = "x" + Item.Quantity;
+        }
+    }
+
+    public void RemoveQuantity(int value, out int removedValue)
+    {
+        int oldVal = Item.Quantity;
+        Item.RemoveQuantity(value);
+
+        if (Item.Quantity < 0)
+        {
+            removedValue = oldVal;
+        }
+        else
+        {
+            removedValue = value;
+        }
+
+        if (Item.Quantity <= 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _itemQuantityField.text = "x" + Item.Quantity;
+        }
+    }
+
+    public void Initialize(ItemInstance item, ShopUIManager shopUIManager)
+    {
+        Item = item;
         _shopUIManager = shopUIManager;
 
         _itemIcon.sprite = item.ItemData.Icon;
         _itemNameField.text = item.ItemData.Name;
-        _itemQuantityField.text = "x" + ShopItem.Quantity;
+        _itemQuantityField.text = "x" + Item.Quantity;
     }
 }

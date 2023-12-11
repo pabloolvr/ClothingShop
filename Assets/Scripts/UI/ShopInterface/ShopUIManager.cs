@@ -149,7 +149,7 @@ public class ShopUIManager : MonoBehaviour
         if (_player.PlayerInventory.HasItemEquipped(item))
         {
             _player.PlayerInventory.EmptySlot(item.Slot, out _);
-            _playerItemPanels[SelectedItemPanel.Item].SetEquipped(false);
+            SelectedItemPanel.SetEquipped(false);
             OnItemSelected(SelectedItemPanel, false);
         }
     }
@@ -172,6 +172,7 @@ public class ShopUIManager : MonoBehaviour
         }
 
         _player.PlayerInventory.EquipItem(item);
+        SelectedItemPanel.SetEquipped(true);
         OnItemSelected(SelectedItemPanel, false);
     }
 

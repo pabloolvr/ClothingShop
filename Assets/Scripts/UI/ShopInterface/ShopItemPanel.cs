@@ -49,7 +49,7 @@ public class ShopItemPanel : MonoBehaviour
 
     public void SetEquipped(bool equipped)
     {
-        //_equippedPanel.SetActive(equipped);
+        _equippedPanel.SetActive(equipped);
     }
 
     public void AddQuantity(int value, out int addedValue)

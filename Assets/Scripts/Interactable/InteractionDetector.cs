@@ -12,22 +12,12 @@ public class InteractionDetector : MonoBehaviour
     //[SerializeField] private float _detectionRadius;
     private List<IInteractable> _interactablesOnRange = new List<IInteractable>();
 
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out IInteractable interactable))
         {
             InteractablesOnRange.Add(interactable);
-            Debug.Log($"Added {interactable} to interactables on range");
+            //Debug.Log($"Added {interactable} to interactables on range");
             OnDetectionUpdate();
         }
     }
@@ -37,7 +27,7 @@ public class InteractionDetector : MonoBehaviour
         if (collision.TryGetComponent(out IInteractable interactable))
         {
             InteractablesOnRange.Remove(interactable);
-            Debug.Log($"Removed {interactable} from interactables on range");
+            //Debug.Log($"Removed {interactable} from interactables on range");
             OnDetectionUpdate();
         }
     }

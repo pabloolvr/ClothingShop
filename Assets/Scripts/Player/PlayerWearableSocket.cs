@@ -18,6 +18,7 @@ public class PlayerWearableSocket : MonoBehaviour
             if (_item != null)
             {
                 _spriteRenderer.sortingOrder = (int)_item.Layer;
+                gameObject.SetActive(true);
             }
             else
             {
@@ -48,6 +49,7 @@ public class PlayerWearableSocket : MonoBehaviour
         if (Item == null) return;
 
         _spriteRenderer.sprite = Item.IdleUpSprites[frame];
+        _spriteRenderer.flipX = false;
     }
 
     public void OnIdleDownFrame(int frame)
@@ -55,6 +57,7 @@ public class PlayerWearableSocket : MonoBehaviour
         if (Item == null) return;
 
         _spriteRenderer.sprite = Item.IdleDownSprites[frame];
+        _spriteRenderer.flipX = false;
     }
 
     public void OnIdleLeftFrame(int frame)
@@ -62,6 +65,7 @@ public class PlayerWearableSocket : MonoBehaviour
         if (Item == null) return;
 
         _spriteRenderer.sprite = Item.IdleLeftSprites[frame];
+        _spriteRenderer.flipX = true;
     }
 
     public void OnIdleRightFrame(int frame)
@@ -69,6 +73,7 @@ public class PlayerWearableSocket : MonoBehaviour
         if (Item == null) return;
 
         _spriteRenderer.sprite = Item.IdleRightSprites[frame];
+        _spriteRenderer.flipX = false;
     }
 
     public void OnWalkUpFrame(int frame)
@@ -76,6 +81,7 @@ public class PlayerWearableSocket : MonoBehaviour
         if (Item == null) return;
 
         _spriteRenderer.sprite = Item.WalkUpSprites[frame];
+        _spriteRenderer.flipX = false;
     }
 
     public void OnWalkDownFrame(int frame)
@@ -83,6 +89,7 @@ public class PlayerWearableSocket : MonoBehaviour
         if (Item == null) return;
 
         _spriteRenderer.sprite = Item.WalkDownSprites[frame];
+        _spriteRenderer.flipX = false;
     }
 
     public void OnWalkLeftFrame(int frame)
@@ -90,6 +97,7 @@ public class PlayerWearableSocket : MonoBehaviour
         if (Item == null) return;
 
         _spriteRenderer.sprite = Item.WalkLeftSprites[frame];
+        _spriteRenderer.flipX = true;
     }
 
     public void OnWalkRightFrame(int frame)
@@ -97,5 +105,6 @@ public class PlayerWearableSocket : MonoBehaviour
         if (Item == null) return;
 
         _spriteRenderer.sprite = Item.WalkRightSprites[frame];
+        _spriteRenderer.flipX = false;
     }
 }

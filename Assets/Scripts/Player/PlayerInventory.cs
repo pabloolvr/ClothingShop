@@ -80,6 +80,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void EquipItem(WearableItem item)
     {
+        _playerAnimator.ResetAnimator();
         _wearableSockets[(int)item.Slot].Item = item;
     }
 

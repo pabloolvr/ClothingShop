@@ -70,6 +70,7 @@ public class PlayerAnimator : MonoBehaviour
 
         _bodyAnimator.SetBool(IdleDownAnimId, true);
         _curIdleAnimId = IdleDownAnimId;
+        _bodyAnimator.Play(IdleDownAnimId, 0, 0);
     }
 
     public void PlayWalkAnim(int walkAnim)
@@ -120,49 +121,41 @@ public class PlayerAnimator : MonoBehaviour
 
     public void OnIdleUpFrame(int frame)
     {
-        //Debug.Log($"{name} OnIdleFrame: {frame}");
         OnIdleUpFrameEvent(frame);
     }
 
     public void OnIdleDownFrame(int frame)
     {
-        //Debug.Log($"{name} OnIdleFrame: {frame}");
         OnIdleDownFrameEvent(frame);
     }
 
     public void OnIdleLeftFrame(int frame)
     {
-        //Debug.Log($"{name} OnIdleFrame: {frame}");
         OnIdleLeftFrameEvent(frame);
     }
 
     public void OnIdleRightFrame(int frame)
     {
-        //Debug.Log($"{name} OnIdleFrame: {frame}");
         OnIdleRightFrameEvent(frame);
     }
 
     public void OnWalkUpFrame(int frame)
     {
-        //Debug.Log($"{name} OnWalkUpFrame: {frame}");
         OnWalkUpFrameEvent(frame);
     }
 
     public void OnWalkDownFrame(int frame)
     {
-        //Debug.Log($"{name} OnWalkDownFrame: {frame}");
         OnWalkDownFrameEvent(frame);
     }
 
     public void OnWalkLeftFrame(int frame)
     {
-        //Debug.Log($"{name} OnWalkLeftFrame: {frame}");
         OnWalkLeftFrameEvent(frame);
     }
 
     public void OnWalkRightFrame(int frame)
     {
-        //Debug.Log($"{name} OnWalkRightFrame: {frame}");
         OnWalkRightFrameEvent(frame);
     }
 }

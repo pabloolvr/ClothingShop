@@ -124,6 +124,7 @@ public class ShopUIManager : MonoBehaviour
         if (_player.PlayerInventory.HasItemEquipped(item))
         {
             _player.PlayerInventory.EmptySlot(item.Slot, out _);
+            OnItemSelected(SelectedItemPanel, false);
         }
     }
 
@@ -132,6 +133,7 @@ public class ShopUIManager : MonoBehaviour
         if (SelectedItemPanel == null) return;
 
         _player.PlayerInventory.EquipItem(SelectedItemPanel.Item.ItemData as WearableItem);
+        OnItemSelected(SelectedItemPanel, false);
     }
 
     private void PlayerSellItem()
@@ -333,8 +335,8 @@ public class ShopUIManager : MonoBehaviour
 
     public void OnShopItemPanelDestroyed(ShopItemPanel shopItemPanel)
     {
-        //_shopItemPanels.Remove(shopItemPanel.Item);
-        //_playerItemPanels.Remove(shopItemPanel.Item);
+        _shopItemPanels.Remove(shopItemPanel.Item);
+        _playerItemPanels.Remove(shopItemPanel.Item);
     }
 
     public void CloseShop()

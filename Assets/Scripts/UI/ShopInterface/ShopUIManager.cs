@@ -47,7 +47,13 @@ public class ShopUIManager : MonoBehaviour
         }
         set
         {
+            if (_selectedItemPanel != null)
+            {
+                _selectedItemPanel.SetSelected(false);
+            }
+
             _selectedItemPanel = value;
+            _selectedItemPanel.SetSelected(true);
             _itemInfoPanel.SetActive(_selectedItemPanel != null);
         }
     }

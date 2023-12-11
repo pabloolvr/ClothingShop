@@ -18,6 +18,7 @@ public class ShopItemPanel : MonoBehaviour
     [SerializeField] private Button _panelBtn;
 
     [SerializeField] private Image _itemIcon;
+    [SerializeField] private Image _backgroundIcon;
     [SerializeField] private TextMeshProUGUI _itemNameField;
     [SerializeField] private TextMeshProUGUI _itemQuantityField;
 
@@ -27,6 +28,22 @@ public class ShopItemPanel : MonoBehaviour
     {
         if (_shopUIManager)
             _shopUIManager.OnShopItemPanelDestroyed(this);
+    }
+
+    public void Initialize(ItemInstance item, ShopUIManager shopUIManager)
+    {
+        Item = item;
+        _shopUIManager = shopUIManager;
+
+        _itemIcon.sprite = item.ItemData.Icon;
+        _itemIcon.color = item.ItemData.Color;
+        _itemNameField.text = item.ItemData.Name;
+        _itemQuantityField.text = "x" + Item.Quantity;
+    }
+
+    public void SetSelected(bool selected)
+    {
+        _backgroundIcon.color = selected ? Color.green : Color.white;
     }
 
     public void AddQuantity(int value, out int addedValue)
@@ -67,15 +84,5 @@ public class ShopItemPanel : MonoBehaviour
         {
             _itemQuantityField.text = "x" + Item.Quantity;
         }
-    }
-
-    public void Initialize(ItemInstance item, ShopUIManager shopUIManager)
-    {
-        Item = item;
-        _shopUIManager = shopUIManager;
-
-        _itemIcon.sprite = item.ItemData.Icon;
-        _itemNameField.text = item.ItemData.Name;
-        _itemQuantityField.text = "x" + Item.Quantity;
     }
 }

@@ -227,6 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _panelBtn: {fileID: 2116661682218846659}
   _itemIcon: {fileID: 2116661681450957192}
+  _backgroundIcon: {fileID: 2116661681075664582}
   _itemNameField: {fileID: 2116661680906553183}
   _itemQuantityField: {fileID: 537810291506602584}
 --- !u!1 &2116661681183605642
@@ -347,7 +348,7 @@ RectTransform:
   m_GameObject: {fileID: 2116661681450957194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.544999, y: 1.544999, z: 1.544999}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2116661681183605643}
@@ -355,7 +356,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.000030517578, y: -4.5999985}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2116661681450957193

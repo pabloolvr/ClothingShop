@@ -18,7 +18,7 @@ MonoBehaviour:
   _color: {r: 1, g: 1, b: 1, a: 1}
   _itemPrice: 250
   _stackable: 0
-  _slot: 2
+  _slot: 3
   _layer: 4
   _idleUpSprites:
   - {fileID: -1135355915, guid: dac44c4920c711c498d7e89f3d760754, type: 3}

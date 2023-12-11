@@ -42,6 +42,16 @@ public class ShopItemPanel : MonoBehaviour
         _itemQuantityField.text = "x" + Item.Quantity;
     }
 
+    public void Initialize(ItemInstance item)
+    {
+        Item = item;
+
+        _itemIcon.sprite = item.ItemData.Icon;
+        _itemIcon.color = item.ItemData.Color;
+        _itemNameField.text = item.ItemData.Name;
+        _itemQuantityField.text = "x" + Item.Quantity;
+    }
+
     public void SetSelected(bool selected)
     {
         _backgroundIcon.color = selected ? Color.green : Color.white;

@@ -8,25 +8,29 @@ public class UIManager : MonoBehaviour
 {
     public event Action OnShopOpened;
     public event Action OnShopClosed;
+    public event Action OnInventoryOpened;
+    public event Action OnInventoryClosed;
 
     [SerializeField] private Canvas _positionsCanvas;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject _shopInterfacePrefab;
+    [SerializeField] private GameObject _inventoryInterfacePrefab;
 
     [Header("Middle")]
     [SerializeField] private Canvas _interactPanel;
-    [SerializeField] private Canvas _tutorialPanel;
+    [SerializeField] private Canvas[] _tutorialPanels;
 
     [Header("Bottom Right")]
     [SerializeField] private Button _inventoryButton;
+    public Button InventoryButton => _inventoryButton;
 
+    private InventoryUIManager _curOpenInventory;
     private ShopUIManager _curOpenShop;
 
     void Start()
     {
         StartCoroutine(ShowTutorialPanel());
-        _inventoryButton.onClick.AddListener(ToggleInventory);
     }
 
     public void ShowInteractPanel(bool value)
@@ -48,17 +52,37 @@ public class UIManager : MonoBehaviour
         OnShopClosed();
     }
 
-    public void ToggleInventory()
+    public void ToggleInventory(PlayerController player)
     {
-
+        if (_curOpenInventory == null)
+        {
+            _curOpenInventory = Instantiate(_inventoryInterfacePrefab).GetComponent<InventoryUIManager>();
+            _curOpenInventory.Initialize(player);
+            _positionsCanvas.enabled = false;
+            OnShopOpened();
+        }
+        else
+        {
+            OnShopClosed();
+            _curOpenInventory.CloseInventory();
+            _positionsCanvas.enabled = true;
+            _curOpenInventory = null;
+        }
     }
 
     private IEnumerator ShowTutorialPanel()
     {
         yield return new WaitForSeconds(.3f);
-        _tutorialPanel.enabled = true;
 
-        yield return new WaitForSeconds(3f);
-        _tutorialPanel.enabled = false;
+        foreach (Canvas tutorialPanel in _tutorialPanels)
+        {
+            tutorialPanel.enabled = true;
+            yield return new WaitForSeconds(3f);
+        }
+
+        foreach (Canvas tutorialPanel in _tutorialPanels)
+        {
+            tutorialPanel.enabled = false;
+        }
     }
 }

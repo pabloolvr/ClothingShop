@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
     {
         _uiManager.OnShopOpened += OnShopOpened;
         _uiManager.OnShopClosed += OnShopClosed;
+        _uiManager.OnInventoryOpened += OnShopOpened;
+        _uiManager.OnInventoryClosed += OnShopClosed;
+        _uiManager.InventoryButton.onClick.AddListener(() => _uiManager.ToggleInventory(_player));
     }
 
     private void OnShopOpened()

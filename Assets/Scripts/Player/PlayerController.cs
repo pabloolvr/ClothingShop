@@ -79,12 +79,6 @@ public class PlayerController : MonoBehaviour
         _closestInteractable.Interact(this);
     }
 
-    public void ToggleInventory()
-    {
-        IsAway = !_isAway;
-        GameManager.Instance.UIManager.ToggleInventory();
-    }
-
     public void DetachCamera()
     {
         _mainCamera.transform.SetParent(null);

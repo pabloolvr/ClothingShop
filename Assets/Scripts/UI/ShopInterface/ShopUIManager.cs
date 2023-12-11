@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,8 +29,8 @@ public class ShopUIManager : MonoBehaviour
     [SerializeField] private Button _equipBtn;
     [SerializeField] private Button _unequipBtn;
 
-    [Header("Settings")]
-    [SerializeField] private float _actionDelay = 1f;
+    //[Header("Settings")]
+    //[SerializeField] private float _actionDelay = 1f;
 
     [Header("Input")]
     [SerializeField] private KeyCode _buySellKey = KeyCode.Q;
@@ -150,7 +147,7 @@ public class ShopUIManager : MonoBehaviour
         {
             _player.PlayerInventory.EmptySlot(item.Slot, out _);
             SelectedItemPanel.SetEquipped(false);
-            OnItemSelected(SelectedItemPanel, false);
+            CloseItemInfoPanel();
         }
     }
 
@@ -226,7 +223,7 @@ public class ShopUIManager : MonoBehaviour
         _playerGoldField.text = "<sprite index=0> " + _player.PlayerInventory.CurGold.ToString();
         _shopGoldField.text = "<sprite index=0> " + _shop.CurGold.ToString();
 
-        SelectedItemPanel = null;
+        CloseItemInfoPanel();
     }
 
     private void PlayerBuyItem()
@@ -275,7 +272,7 @@ public class ShopUIManager : MonoBehaviour
         _playerGoldField.text = "<sprite index=0> " + _player.PlayerInventory.CurGold.ToString();
         _shopGoldField.text = "<sprite index=0> " + _shop.CurGold.ToString();
 
-        SelectedItemPanel = null;
+        CloseItemInfoPanel();
     }
 
     /// <summary>

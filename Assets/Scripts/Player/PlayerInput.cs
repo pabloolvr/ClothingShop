@@ -25,13 +25,6 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(_inventoryKey))
-        {
-            _playerController.IsAway = !_playerController.IsAway;
-            GameManager.Instance.UIManager.ToggleInventory();
-            _playerAnimator.ResetAnimator();
-        }
-
         if (_playerController.IsAway) return;
 
         UpdateMovement();
@@ -40,6 +33,13 @@ public class PlayerInput : MonoBehaviour
         {
             _playerController.Interact();
             _playerAnimator.ResetAnimator();
+        }
+
+        if (Input.GetKeyDown(_inventoryKey))
+        {
+            //_playerController.IsAway = !_playerController.IsAway;
+            GameManager.Instance.UIManager.ToggleInventory(_playerController);
+            //_playerAnimator.ResetAnimator();
         }
     }
 

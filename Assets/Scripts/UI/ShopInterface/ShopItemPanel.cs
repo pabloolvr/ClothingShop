@@ -19,6 +19,7 @@ public class ShopItemPanel : MonoBehaviour
 
     [SerializeField] private Image _itemIcon;
     [SerializeField] private Image _backgroundIcon;
+    [SerializeField] private GameObject _equippedPanel;
     [SerializeField] private TextMeshProUGUI _itemNameField;
     [SerializeField] private TextMeshProUGUI _itemQuantityField;
 
@@ -44,6 +45,11 @@ public class ShopItemPanel : MonoBehaviour
     public void SetSelected(bool selected)
     {
         _backgroundIcon.color = selected ? Color.green : Color.white;
+    }
+
+    public void SetEquipped(bool equipped)
+    {
+        //_equippedPanel.SetActive(equipped);
     }
 
     public void AddQuantity(int value, out int addedValue)

@@ -42,8 +42,8 @@ public class PlayerController : MonoBehaviour
 
     private void StartComponents()
     {
-        _playerAnimator.Initialize(_wearableSockets);
-        _playerInventory.Initialize(_playerAnimator, _wearableSockets);
+        _playerAnimator.Initialize();
+        _playerInventory.Initialize(_playerAnimator);
     }
 
     private void SetEvents()

@@ -49,7 +49,6 @@ public class ItemInstance
     }
 }
 
-//[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Game Item")]
 public class ItemData : ScriptableObject
 {
     public string Name => _itemName;

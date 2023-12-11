@@ -19,6 +19,8 @@ public class PlayerInventory : MonoBehaviour
     //private Dictionary<ItemData, List<ItemInstance>> _itemInventory = new Dictionary<ItemData, List<ItemInstance>>();
     private List<ItemInstance> _itemInventory = new List<ItemInstance>();
     private PlayerWearableSocket[] _wearableSockets;
+    private PlayerWearableSocket[] _previewWearableSockets;
+    private int _curPreviewSlot = -1;
     private PlayerAnimator _playerAnimator;
 
     void Start()
@@ -26,10 +28,11 @@ public class PlayerInventory : MonoBehaviour
         CurGold = 3000;
     }
  
-    public void Initialize(PlayerAnimator playerAnimator, PlayerWearableSocket[] wearableSockets)
+    public void Initialize(PlayerAnimator playerAnimator)
     {
-        _wearableSockets = wearableSockets;
         _playerAnimator = playerAnimator;
+        _wearableSockets = playerAnimator.WearableSockets;
+        _previewWearableSockets = playerAnimator.PreviewWearableSockets;
     }
 
     /// <summary>
@@ -102,15 +105,43 @@ public class PlayerInventory : MonoBehaviour
         return _wearableSockets[(int)item.Slot].Item == item;
     }
 
-    public void EquipItem(WearableItem item)
+    public void PreviewItem(WearableItem item)
+    {
+        Debug.Log($"Previewing {item}");
+        EmptyPreviewSlot(out WearableItem _);
+        _previewWearableSockets[(int)item.Slot].Item = item;
+        _curPreviewSlot = (int)item.Slot;
+        //_previewWearableSockets[(int)item.Slot].gameObject.SetActive(true);
+        _wearableSockets[(int)item.Slot].gameObject.SetActive(false);
+    }
+
+    public void EmptyPreviewSlot(out WearableItem item)
     {
         _playerAnimator.ResetAnimator();
+        if (_curPreviewSlot == -1)
+        {
+            item = null;
+            return;
+        }
+
+        item = _previewWearableSockets[_curPreviewSlot].Item;
+        Debug.Log($"Emptying slot {_curPreviewSlot} from {item}");
+        _previewWearableSockets[_curPreviewSlot].Item = null;
+        _wearableSockets[_curPreviewSlot].Item = _wearableSockets[_curPreviewSlot].Item;
+    }
+
+    public void EquipItem(WearableItem item)
+    {
+        EmptyPreviewSlot(out WearableItem _);
         _wearableSockets[(int)item.Slot].Item = item;
     }
 
-    public void EmptySlot(WearableSlot slot, out WearableItem item)
+    public bool EmptySlot(WearableSlot slot, out WearableItem item)
     {
+        EmptyPreviewSlot(out WearableItem _);
         item = _wearableSockets[(int)slot].Item;
-        _wearableSockets[(int)item.Slot].Item = null;
+        _wearableSockets[(int)slot].Item = null;
+
+        return item != null;
     }
 }

@@ -18,8 +18,10 @@ public class PlayerAnimator : MonoBehaviour
     public int IdleLeftAnimId { get; private set; }
     public int IdleRightAnimId { get; private set; }
 
-    public event Action OnAnimatorReset = delegate { };
+    public PlayerWearableSocket[] WearableSockets => _wearableSockets;
+    public PlayerWearableSocket[] PreviewWearableSockets => _previewWearableSockets;
 
+    public event Action OnAnimatorReset = delegate { };
     public event Action<int> OnIdleUpFrameEvent = delegate { };
     public event Action<int> OnIdleDownFrameEvent = delegate { };
     public event Action<int> OnIdleLeftFrameEvent = delegate { };
@@ -29,11 +31,14 @@ public class PlayerAnimator : MonoBehaviour
     public event Action<int> OnWalkLeftFrameEvent = delegate { };
     public event Action<int> OnWalkRightFrameEvent = delegate { };
 
+    [SerializeField] private PlayerWearableSocket[] _wearableSockets;
+    [SerializeField] private PlayerWearableSocket[] _previewWearableSockets;
+
     private Animator _bodyAnimator;
     private int _curWalkAnimId = -1;
     private int _curIdleAnimId = -1;
 
-    public void Initialize(PlayerWearableSocket[] wearableSockets)
+    public void Initialize()
     {
         _bodyAnimator = GetComponent<Animator>();
 
@@ -46,10 +51,15 @@ public class PlayerAnimator : MonoBehaviour
         IdleLeftAnimId = Animator.StringToHash("IdleLeft");
         IdleRightAnimId = Animator.StringToHash("IdleRight");
 
-        foreach (PlayerWearableSocket wearableSocket in wearableSockets)
+        foreach (PlayerWearableSocket wearableSocket in _wearableSockets)
         {
             wearableSocket.Initialize(this);
         }
+
+        foreach (PlayerWearableSocket wearableSocket in _previewWearableSockets)
+        {
+            wearableSocket.Initialize(this);
+        }       
     }
 
     private void Start()

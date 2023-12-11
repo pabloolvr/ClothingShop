@@ -56,10 +56,19 @@ public class ShopUIManager : MonoBehaviour
 
             if (_selectedItemPanel != null)
             {
+                _itemInfoPanel.SetActive(true);
                 _selectedItemPanel.SetSelected(true);
+
+                if (_selectedItemPanel.Item.ItemData is WearableItem)
+                {
+                    _player.PlayerInventory.PreviewItem(_selectedItemPanel.Item.ItemData as WearableItem);
+                }              
             }
-            
-            _itemInfoPanel.SetActive(_selectedItemPanel != null);
+            else
+            {
+                _itemInfoPanel.SetActive(false);
+                _player.PlayerInventory.EmptyPreviewSlot(out WearableItem _);
+            }          
         }
     }
 
@@ -126,6 +135,11 @@ public class ShopUIManager : MonoBehaviour
         }
     }
 
+    public void CloseItemInfoPanel()
+    {
+        SelectedItemPanel = null;
+    }
+
     private void PlayerUnequipItem()
     {
         if (SelectedItemPanel == null) return;
@@ -135,6 +149,7 @@ public class ShopUIManager : MonoBehaviour
         if (_player.PlayerInventory.HasItemEquipped(item))
         {
             _player.PlayerInventory.EmptySlot(item.Slot, out _);
+            _playerItemPanels[SelectedItemPanel.Item].SetEquipped(false);
             OnItemSelected(SelectedItemPanel, false);
         }
     }
@@ -143,7 +158,20 @@ public class ShopUIManager : MonoBehaviour
     {
         if (SelectedItemPanel == null) return;
 
-        _player.PlayerInventory.EquipItem(SelectedItemPanel.Item.ItemData as WearableItem);
+        WearableItem item = SelectedItemPanel.Item.ItemData as WearableItem;
+
+        if (_player.PlayerInventory.EmptySlot(item.Slot, out WearableItem removedItem))
+        {
+            foreach (ItemInstance itemInstance in _playerItemPanels.Keys)
+            {
+                if (itemInstance.ItemData == removedItem)
+                {
+                    _playerItemPanels[itemInstance].SetEquipped(false);
+                }
+            }           
+        }
+
+        _player.PlayerInventory.EquipItem(item);
         OnItemSelected(SelectedItemPanel, false);
     }
 
@@ -312,6 +340,7 @@ public class ShopUIManager : MonoBehaviour
         itemPanel = Instantiate(_shopItemPanelPrefab, scrollView.content).GetComponent<ShopItemPanel>();
         itemPanel.Initialize(itemInstance, this);
         itemPanel.PanelBtn.onClick.AddListener(() => OnItemSelected(itemPanel, fromShop));
+        itemPanel.SetEquipped(_player.PlayerInventory.HasItemEquipped(itemInstance.ItemData as WearableItem));
         itemPanels.Add(itemInstance, itemPanel);
         return true;
     }
@@ -386,6 +415,7 @@ public class ShopUIManager : MonoBehaviour
 
     public void CloseShop()
     {
+        _player.PlayerInventory.EmptyPreviewSlot(out WearableItem _);
         GameManager.Instance.UIManager.CloseShopInterface();
         Destroy(_shopCameraInstance);
         Destroy(gameObject);

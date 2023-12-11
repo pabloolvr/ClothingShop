@@ -73,6 +73,30 @@ public class PlayerInventory : MonoBehaviour
         return true;
     }
 
+    public bool RemoveFromInventory(ItemInstance itemInstance, int quantity)
+    {
+        if (_itemInventory.Contains(itemInstance))
+        {
+            if (!itemInstance.ItemData.Stackable)
+            {
+                _itemInventory.Remove(itemInstance);
+                return true;
+            }
+            else if (itemInstance.Quantity >= quantity)
+            {
+                itemInstance.RemoveQuantity(quantity);
+                return true;
+            }
+            else
+            {
+                _itemInventory.Remove(itemInstance);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public bool HasItemEquipped(WearableItem item)
     {
         return _wearableSockets[(int)item.Slot].Item == item;

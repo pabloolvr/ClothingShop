@@ -63,30 +63,50 @@ public class Shop : MonoBehaviour, IInteractable
         GameManager.Instance.UIManager.OpenShopInterface(player, this);
     }
 
-    public void AddStock(ItemInstance itemInstance, int quantity)
+    public bool TryAddStock(ItemData itemData, out ItemInstance itemInstance)
     {
-        if (!itemInstance.ItemData.Stackable)
+        itemInstance = null;
+
+        if (!itemData.Stackable)
         {
-            if (!_curStock.Contains(itemInstance))
-                _curStock.Add(itemInstance);
-        }
-        else if (_curStock.Contains(itemInstance))
-        {
-            itemInstance.AddQuantity(quantity);
+            itemInstance = new ItemInstance(itemData, 1, itemData.ItemPrice);
+            _curStock.Add(itemInstance);
         }
         else
         {
             foreach (ItemInstance item in _curStock)
             {
-                if (item.ItemData == itemInstance.ItemData)
+                if (item.ItemData == itemData)
                 {
-                    item.AddQuantity(quantity);
-                    return;
+                    item.AddQuantity(1);
+                    return true;
                 }
             }
 
+            itemInstance = new ItemInstance(itemData, 1, itemData.ItemPrice);
             _curStock.Add(itemInstance);
         }
+
+        return true;
+        //if (_curStock.Contains(itemInstance)) return;
+
+        //if (!itemInstance.ItemData.Stackable)
+        //{
+        //    _curStock.Add(itemInstance);
+        //}
+        //else
+        //{
+        //    foreach (ItemInstance item in _curStock)
+        //    {
+        //        if (item.ItemData == itemInstance.ItemData)
+        //        {
+        //            item.AddQuantity(quantity);
+        //            return;
+        //        }
+        //    }
+
+        //    _curStock.Add(itemInstance);
+        //}
     }
 
     public bool RemoveFromStock(ItemInstance itemInstance, int quantity)

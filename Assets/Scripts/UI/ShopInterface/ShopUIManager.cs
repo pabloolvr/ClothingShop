@@ -140,19 +140,53 @@ public class ShopUIManager : MonoBehaviour
     {
         if (SelectedItemPanel == null) return;
 
-        //SelectedItemPanel.Item.RemoveQuantity(1);
+        ItemInstance itemInstance = null;
 
-        //if (_shopItemPanels.ContainsKey(SelectedItemPanel.Item.ItemData))
-        //{
-        //    _shopItemPanels[SelectedItemPanel.Item.ItemData].AddQuantity(1);
-        //}
-        //else
-        //{
-        //    _shopItemPanels.Add(SelectedItemPanel.Item.ItemData, SelectedItemPanel.ShopItem);
-        //}
+        SelectedItemPanel.RemoveQuantity(1, out int removedQty);
+        if (removedQty == 1)
+        {
+            //_shop.RemoveFromStock(SelectedItemPanel.Item, removedQty);
+            //_player.PlayerInventory.TryAddItem(SelectedItemPanel.Item.ItemData, out itemInstance);            
+            _shop.TryAddStock(SelectedItemPanel.Item.ItemData, out itemInstance);
+            _player.PlayerInventory.RemoveFromInventory(SelectedItemPanel.Item, removedQty);
+            PlayerUnequipItem();
+        }
+        else
+        {
+            return;
+        }
+
+        if (SelectedItemPanel.Item.ItemData.Stackable)
+        {
+            if (itemInstance != null)
+            {
+                SpawnItemPanel(itemInstance, true);
+            }
+            else
+            {
+                foreach (ItemInstance item in _shopItemPanels.Keys)
+                {
+                    if (item.ItemData == SelectedItemPanel.Item.ItemData)
+                    {
+                        _shopItemPanels[item].AddQuantity(1, out _);
+                    }
+                }
+            }
+        }
+        else
+        {
+            SpawnItemPanel(itemInstance, true);
+        }
+
+        // update gold qty of shop and player
+        int sellPrice = _shop.GetBuyPrice(SelectedItemPanel.Item.ItemData);
+        _shop.CurGold -= sellPrice;
+        _player.PlayerInventory.CurGold += sellPrice;
 
         _playerGoldField.text = "<sprite index=0> " + _player.PlayerInventory.CurGold.ToString();
         _shopGoldField.text = "<sprite index=0> " + _shop.CurGold.ToString();
+
+        SelectedItemPanel = null;
     }
 
     private void PlayerBuyItem()

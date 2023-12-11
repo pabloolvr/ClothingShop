@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -4393,8 +4393,8 @@ TextureImporter:
       fbas_13hair_dapper_00a_136: 1852663184
       fbas_13hair_dapper_00a_168: 1105888311
       fbas_13hair_dapper_00a_14: -1853295141
-      fbas_13hair_dapper_00a_16: 1305372770
       fbas_13hair_dapper_00a_152: -1534479273
+      fbas_13hair_dapper_00a_16: 1305372770
       fbas_13hair_dapper_00a_62: -849943602
       fbas_13hair_dapper_00a_25: -1709322710
       fbas_13hair_dapper_00a_49: -517455356

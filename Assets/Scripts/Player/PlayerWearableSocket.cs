@@ -18,6 +18,7 @@ public class PlayerWearableSocket : MonoBehaviour
             if (_item != null)
             {
                 _spriteRenderer.sortingOrder = (int)_item.Layer;
+                _spriteRenderer.color = _item.Color;
                 gameObject.SetActive(true);
             }
             else

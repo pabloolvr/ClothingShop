@@ -18,6 +18,8 @@ public class PlayerAnimator : MonoBehaviour
     public int IdleLeftAnimId { get; private set; }
     public int IdleRightAnimId { get; private set; }
 
+    public event Action OnAnimatorReset = delegate { };
+
     public event Action<int> OnIdleUpFrameEvent = delegate { };
     public event Action<int> OnIdleDownFrameEvent = delegate { };
     public event Action<int> OnIdleLeftFrameEvent = delegate { };
@@ -71,6 +73,7 @@ public class PlayerAnimator : MonoBehaviour
         _bodyAnimator.SetBool(IdleDownAnimId, true);
         _curIdleAnimId = IdleDownAnimId;
         _bodyAnimator.Play(IdleDownAnimId, 0, 0);
+        OnAnimatorReset();
     }
 
     public void PlayWalkAnim(int walkAnim)

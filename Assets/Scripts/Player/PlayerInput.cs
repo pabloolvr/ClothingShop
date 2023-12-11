@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour
     {
         _playerController = GetComponent<PlayerController>();
         _playerAnimator = _playerController.PlayerAnimator;
+        _playerAnimator.OnAnimatorReset += () => _inputHistory.Clear();
     }
 
     private void Update()
@@ -28,7 +29,10 @@ public class PlayerInput : MonoBehaviour
         UpdateMovement();
      
         if (Input.GetKeyDown(_interactKey))
+        {
             _playerController.Interact();
+            _playerAnimator.ResetAnimator();
+        }
     }
 
     private void UpdateMovement()

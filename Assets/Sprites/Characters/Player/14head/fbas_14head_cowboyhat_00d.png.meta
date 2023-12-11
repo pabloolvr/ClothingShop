@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -4405,10 +4405,10 @@ TextureImporter:
       fbas_14head_cowboyhat_00d_132: 1943759033
       fbas_14head_cowboyhat_00d_150: -2078016614
       fbas_14head_cowboyhat_00d_102: 686824379
-      fbas_14head_cowboyhat_00d_25: 2118126981
-      fbas_14head_cowboyhat_00d_32: 1161642273
       fbas_14head_cowboyhat_00d_115: 918088100
+      fbas_14head_cowboyhat_00d_25: 2118126981
       fbas_14head_cowboyhat_00d_130: -718133846
+      fbas_14head_cowboyhat_00d_32: 1161642273
       fbas_14head_cowboyhat_00d_165: -770317740
       fbas_14head_cowboyhat_00d_198: 783656661
       fbas_14head_cowboyhat_00d_67: 288372831
@@ -4457,8 +4457,8 @@ TextureImporter:
       fbas_14head_cowboyhat_00d_43: 562408007
       fbas_14head_cowboyhat_00d_18: -113650017
       fbas_14head_cowboyhat_00d_7: 197115028
-      fbas_14head_cowboyhat_00d_88: -813345074
       fbas_14head_cowboyhat_00d_110: -140326907
+      fbas_14head_cowboyhat_00d_170: 153509583
       fbas_14head_cowboyhat_00d_113: 1266901827
       fbas_14head_cowboyhat_00d_5: 1260356083
       fbas_14head_cowboyhat_00d_27: -1059855474
@@ -4467,17 +4467,17 @@ TextureImporter:
       fbas_14head_cowboyhat_00d_94: -709721585
       fbas_14head_cowboyhat_00d_158: -287974080
       fbas_14head_cowboyhat_00d_134: 910434876
-      fbas_14head_cowboyhat_00d_170: 153509583
+      fbas_14head_cowboyhat_00d_88: -813345074
       fbas_14head_cowboyhat_00d_63: -332867087
-      fbas_14head_cowboyhat_00d_55: 1427885265
-      fbas_14head_cowboyhat_00d_140: -915565097
-      fbas_14head_cowboyhat_00d_171: -1662598987
-      fbas_14head_cowboyhat_00d_92: -453395560
-      fbas_14head_cowboyhat_00d_183: 126568523
-      fbas_14head_cowboyhat_00d_101: -831535417
       fbas_14head_cowboyhat_00d_135: -1073541427
+      fbas_14head_cowboyhat_00d_140: -915565097
+      fbas_14head_cowboyhat_00d_183: 126568523
+      fbas_14head_cowboyhat_00d_92: -453395560
+      fbas_14head_cowboyhat_00d_171: -1662598987
+      fbas_14head_cowboyhat_00d_101: -831535417
       fbas_14head_cowboyhat_00d_33: 515257136
       fbas_14head_cowboyhat_00d_146: 1582783407
+      fbas_14head_cowboyhat_00d_55: 1427885265
       fbas_14head_cowboyhat_00d_81: -1534616066
       fbas_14head_cowboyhat_00d_12: -1938087843
       fbas_14head_cowboyhat_00d_179: 314762032
@@ -4491,11 +4491,11 @@ TextureImporter:
       fbas_14head_cowboyhat_00d_17: -411504320
       fbas_14head_cowboyhat_00d_46: 696179710
       fbas_14head_cowboyhat_00d_34: 1336912016
-      fbas_14head_cowboyhat_00d_112: -1303967047
-      fbas_14head_cowboyhat_00d_70: -1387454307
       fbas_14head_cowboyhat_00d_99: 1642595426
+      fbas_14head_cowboyhat_00d_70: -1387454307
       fbas_14head_cowboyhat_00d_197: 182478570
       fbas_14head_cowboyhat_00d_15: 1604348375
+      fbas_14head_cowboyhat_00d_112: -1303967047
       fbas_14head_cowboyhat_00d_124: 876384672
       fbas_14head_cowboyhat_00d_131: 11116730
       fbas_14head_cowboyhat_00d_109: 580026851

@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -4429,9 +4429,9 @@ TextureImporter:
       fbas_04lwr1_longpants_00a_160: -286242497
       fbas_04lwr1_longpants_00a_98: -1708924057
       fbas_04lwr1_longpants_00a_99: 251012412
+      fbas_04lwr1_longpants_00a_183: -201884900
       fbas_04lwr1_longpants_00a_96: -2048126944
       fbas_04lwr1_longpants_00a_106: 2076928855
-      fbas_04lwr1_longpants_00a_183: -201884900
       fbas_04lwr1_longpants_00a_127: -1447907873
       fbas_04lwr1_longpants_00a_143: -1801411472
       fbas_04lwr1_longpants_00a_114: -974320513

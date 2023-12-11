@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a8f77e02bc99b4495cdcadfc3f7d6f, type: 3}
+  m_Name: Hairstyle1 3
+  m_EditorClassIdentifier: 
+  _itemName: Yellow Hair 1
+  _itemDescription: Hairstyle 1 on the yellow color.
+  _itemIcon: {fileID: 1117235168, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  _color: {r: 0.92608714, g: 0.9339623, b: 0.19824673, a: 1}
+  _itemPrice: 150
+  _stackable: 0
+  _slot: 0
+  _layer: 13
+  _idleUpSprites:
+  - {fileID: -1326202079, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: -211162395, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: -1326202079, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  _idleDownSprites:
+  - {fileID: 1117235168, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: 1556381562, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: 1117235168, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  _idleLeftSprites:
+  - {fileID: 1706547862, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: -1878415714, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: 1706547862, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  _idleRightSprites:
+  - {fileID: 1706547862, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: -1878415714, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: 1706547862, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  _walkUpSprites:
+  - {fileID: -139092823, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: 1815756225, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: 441531731, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: 1815756225, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: -139092823, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  _walkDownSprites:
+  - {fileID: -556340081, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: -664677154, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: 862058765, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: -664677154, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: -556340081, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  _walkLeftSprites:
+  - {fileID: -644641375, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: 1742892826, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: -47918066, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: 1742892826, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: -644641375, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  _walkRightSprites:
+  - {fileID: -644641375, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: 1742892826, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: -47918066, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: 1742892826, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}
+  - {fileID: -644641375, guid: ffe2e4ec2e36b5c418ff2a89913c13d3, type: 3}

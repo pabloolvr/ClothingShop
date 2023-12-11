@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -4268,8 +4268,8 @@ TextureImporter:
       fbas_03fot1_shoes_00a_139: -742265087
       fbas_03fot1_shoes_00a_9: -944615887
       fbas_03fot1_shoes_00a_2: -1717668198
-      fbas_03fot1_shoes_00a_26: 1694134725
       fbas_03fot1_shoes_00a_39: 1991664838
+      fbas_03fot1_shoes_00a_26: 1694134725
       fbas_03fot1_shoes_00a_160: 464863607
       fbas_03fot1_shoes_00a_111: 347006928
       fbas_03fot1_shoes_00a_58: 607194093
@@ -4278,16 +4278,16 @@ TextureImporter:
       fbas_03fot1_shoes_00a_51: 338905370
       fbas_03fot1_shoes_00a_65: -257454263
       fbas_03fot1_shoes_00a_33: 1576655499
-      fbas_03fot1_shoes_00a_35: -2114261220
       fbas_03fot1_shoes_00a_83: 706655981
-      fbas_03fot1_shoes_00a_85: -2103804837
+      fbas_03fot1_shoes_00a_35: -2114261220
       fbas_03fot1_shoes_00a_127: -1985594808
       fbas_03fot1_shoes_00a_15: -1404225559
-      fbas_03fot1_shoes_00a_79: 1982867206
-      fbas_03fot1_shoes_00a_132: -258695920
-      fbas_03fot1_shoes_00a_118: -1510640990
-      fbas_03fot1_shoes_00a_189: -322761726
+      fbas_03fot1_shoes_00a_85: -2103804837
       fbas_03fot1_shoes_00a_193: 2046850177
+      fbas_03fot1_shoes_00a_79: 1982867206
+      fbas_03fot1_shoes_00a_189: -322761726
+      fbas_03fot1_shoes_00a_118: -1510640990
+      fbas_03fot1_shoes_00a_132: -258695920
       fbas_03fot1_shoes_00a_161: 1872259097
       fbas_03fot1_shoes_00a_31: 909955745
       fbas_03fot1_shoes_00a_36: -270891292

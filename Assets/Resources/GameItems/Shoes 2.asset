@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07a8f77e02bc99b4495cdcadfc3f7d6f, type: 3}
-  m_Name: Shoes 1
+  m_Name: Shoes 2
   m_EditorClassIdentifier: 
-  _itemName: Green Shoes
-  _itemDescription: Simple shoes on the green color.
+  _itemName: Wine Shoes
+  _itemDescription: Simple shoes on the wine color.
   _itemIcon: {fileID: 585475115, guid: 0e83a376358293e41bc21b56ada77c60, type: 3}
-  _color: {r: 1, g: 1, b: 1, a: 1}
+  _color: {r: 1, g: 0, b: 0, a: 1}
   _itemPrice: 120
   _stackable: 0
   _slot: 3

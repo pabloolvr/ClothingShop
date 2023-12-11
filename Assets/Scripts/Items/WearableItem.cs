@@ -38,7 +38,6 @@ public class WearableItem : ItemData
 {
     public WearableSlot Slot => _slot;
     public WearableLayer Layer => _layer;
-    public GameObject ModelPrefab => _modelPrefab;
     public Sprite[] IdleUpSprites => _idleUpSprites;
     public Sprite[] IdleDownSprites => _idleDownSprites;
     public Sprite[] IdleLeftSprites => _idleLeftSprites;
@@ -51,7 +50,6 @@ public class WearableItem : ItemData
     [Header("Wearable Data")]
     [SerializeField] private WearableSlot _slot;
     [SerializeField] private WearableLayer _layer;
-    [SerializeField] private GameObject _modelPrefab;
 
     [Header("Idle Animation Sprites")]
     [SerializeField] private Sprite[] _idleUpSprites = new Sprite[3];

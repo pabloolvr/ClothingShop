@@ -239,6 +239,62 @@ MonoBehaviour:
     _quantity: 1
     _useLocalPrice: 0
     _price: 250
+  - _itemData: {fileID: 11400000, guid: e5ca58d1d7dec5c45b7286ab88b05630, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 250
+  - _itemData: {fileID: 11400000, guid: dceb15d1680d5434f9a53773523b9c09, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
+  - _itemData: {fileID: 11400000, guid: 4e8523f7369c24a40911840cb042c007, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
+  - _itemData: {fileID: 11400000, guid: c1f1c830fd411594194ae52f86a514d9, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
+  - _itemData: {fileID: 11400000, guid: 26193be2e24d3ad488015dabd70a50f3, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
+  - _itemData: {fileID: 11400000, guid: 3eab78130381d18468cc17fdba2ddda7, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
+  - _itemData: {fileID: 11400000, guid: c16252628640f3343b48942c1423a44f, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
+  - _itemData: {fileID: 11400000, guid: a587a36d75aace049831ad80284ed47b, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
+  - _itemData: {fileID: 11400000, guid: c8664631f3bd76446990e005e869e4ef, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
+  - _itemData: {fileID: 11400000, guid: 5b2d5b970c7d9f0409dacc994ed12bbe, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
+  - _itemData: {fileID: 11400000, guid: f17bbfaa70e220e4183c2b562acf3cb6, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
+  - _itemData: {fileID: 11400000, guid: 9765ce0024718234bb9d9e18c652e9bc, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
+  - _itemData: {fileID: 11400000, guid: 56131b5c94f437c479032afe6f0a4fed, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
+  - _itemData: {fileID: 11400000, guid: 7940efb836300bf4d9e7b8e27d3c1aa3, type: 2}
+    _quantity: 1
+    _useLocalPrice: 0
+    _price: 100
 --- !u!61 &7930294840927974034
 BoxCollider2D:
   m_ObjectHideFlags: 0
